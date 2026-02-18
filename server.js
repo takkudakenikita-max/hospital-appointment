@@ -1,20 +1,35 @@
-const express = require("express");
-    const dotenv = require ("dotenv");
-    const cors = require("cors");
-    const connectDB = require("./config/db");
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const connectDB = require('./config/db');
+require('dotenv').config();
 
-    dotenv.config();
-    connectDB();
+const app = express();
+const PORT = process.env.PORT || 5000;
 
-     const app = express();
+// Connect to Database
+connectDB();
 
-     app.use(cors());
-     app.use(express.json());
-     app.use(express.static("public"));
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
-     app.use("/api/jobs", require("./routes/jobRoutes"));
-     app.use("/api/applications", require("./routes/applicationRoutes"));
+app.get('/api', (req, res) => {
+    res.json({ message: "Welcome to Hospital Appointment Booking API", status: "Running" });
+});
 
-     app.listen(5001,() => {
-        console.log(`server is running in the port 5001`)
-     })
+// Routes
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/doctors', require('./routes/doctorRoutes'));
+app.use('/api/appointments', require('./routes/appointmentRoutes'));
+app.use('/api/hospitals', require('./routes/hospitalRoutes'));
+
+// Middleware to handle 404 for API routes
+app.use((req, res, next) => {
+    res.status(404).json({ msg: "Route not found" });
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});

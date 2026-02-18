@@ -1,43 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>Job Portal</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Appointment Booking</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
+    <header>
+        <nav>
+            <div class="logo">HealWell</div>
+            <ul id="nav-links">
+                <li><a href="#" onclick="showSection('home')">Home</a></li>
+                <li><a href="#" onclick="showSection('doctors')">Find Doctors</a></li>
+                <li id="auth-link"><a href="#" onclick="showSection('login')">Login</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<nav class="navbar">
-  <h2>JobPortal</h2>
-  <div>
-    <a href="index.html">User</a>
-    <a href="admin-login.html">Admin</a>
-  </div>
-</nav>
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="active-section">
+            <div class="hero">
+                <h1>Book Your Appointment Today</h1>
+                <p>Find the best doctors and hospitals near you.</p>
+                <button onclick="showSection('doctors')">Book Now</button>
+            </div>
+        </section>
 
-<div class="container">
-  <h2>Available Jobs</h2>
+        <!-- Login Section -->
+        <section id="login" class="hidden-section">
+            <div class="form-container">
+                <h2>Login</h2>
+                <form id="login-form">
+                    <input type="email" id="login-email" placeholder="Email" required>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                </form>
+                <p>Don't have an account? <a href="#" onclick="showSection('register')">Register</a></p>
+            </div>
+        </section>
 
-  <div class="filters">
-    <select id="locationFilter">
-      <option value="">All Locations</option>
-      <option>Bangalore</option>
-      <option>Mumbai</option>
-      <option>Delhi</option>
-    </select>
+        <!-- Register Section -->
+        <section id="register" class="hidden-section">
+            <div class="form-container">
+                <h2>Register</h2>
+                <form id="register-form">
+                    <input type="text" id="reg-name" placeholder="Full Name" required>
+                    <input type="email" id="reg-email" placeholder="Email" required>
+                    <input type="password" id="reg-password" placeholder="Password" required>
+                    <select id="reg-role">
+                        <option value="patient">Patient</option>
+                        <option value="doctor">Doctor</option>
+                    </select>
+                    <button type="submit">Register</button>
+                </form>
+                <p>Already have an account? <a href="#" onclick="showSection('login')">Login</a></p>
+            </div>
+        </section>
 
-    <select id="workTypeFilter">
-      <option value="">All Types</option>
-      <option>Remote</option>
-      <option>Hybrid</option>
-      <option>Onsite</option>
-    </select>
+        <!-- Doctors Section -->
+        <section id="doctors" class="hidden-section">
+            <h2>Our Doctors</h2>
+            <div id="doctor-list" class="grid-container">
+                <!-- Doctors will be loaded here dynamically -->
+                <p>Loading doctors...</p>
+            </div>
+        </section>
 
-    <button onclick="loadJobs()">Filter</button>
-  </div>
+        <!-- Appointments Section -->
+        <section id="appointments" class="hidden-section">
+            <h2>My Appointments</h2>
+            <div id="appointment-list" class="grid-container">
+                <p>Loading appointments...</p>
+            </div>
+        </section>
 
-  <div id="jobs"></div>
-</div>
+        <!-- Patients Section -->
+        <section id="patients" class="hidden-section">
+            <h2>Registered Patients</h2>
+            <div id="patient-list" class="grid-container">
+                <p>Loading patients...</p>
+            </div>
+        </section>
+    </main>
 
-<script src="js/app.js"></script>
+    <script src="js/app.js"></script>
 </body>
+
 </html>
